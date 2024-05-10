@@ -12,6 +12,10 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
         // TODO
     }
 
+    public ScenarioStepCompositeType getType() {
+        return type;
+    }
+
     @Override
     public String getText() {
         return text;
