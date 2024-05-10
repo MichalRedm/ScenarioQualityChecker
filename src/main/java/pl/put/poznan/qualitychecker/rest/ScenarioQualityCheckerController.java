@@ -15,28 +15,28 @@ public class ScenarioQualityCheckerController {
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public String get(@PathVariable String text,
-                              @RequestParam(value="transforms", defaultValue="upper,escape") String[] transforms) {
+                              @RequestParam(value="args", defaultValue="upper,escape") String[] args) {
 
         // log the parameters
         logger.debug(text);
-        logger.debug(Arrays.toString(transforms));
+        logger.debug(Arrays.toString(args));
 
         // perform the transformation, you should run your logic here, below is just a silly example
-        ScenarioQualityChecker transformer = new ScenarioQualityChecker(transforms);
-        return transformer.transform(text);
+        ScenarioQualityChecker qualityChecker = new ScenarioQualityChecker(args);
+        return null;
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public String post(@PathVariable String text,
-                      @RequestBody String[] transforms) {
+                      @RequestBody String[] args) {
 
         // log the parameters
         logger.debug(text);
-        logger.debug(Arrays.toString(transforms));
+        logger.debug(Arrays.toString(args));
 
         // perform the transformation, you should run your logic here, below is just a silly example
-        ScenarioQualityChecker transformer = new ScenarioQualityChecker(transforms);
-        return transformer.transform(text);
+        ScenarioQualityChecker qualityChecker = new ScenarioQualityChecker(args);
+        return null;
     }
 
 

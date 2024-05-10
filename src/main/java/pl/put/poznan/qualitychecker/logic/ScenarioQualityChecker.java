@@ -1,18 +1,35 @@
 package pl.put.poznan.qualitychecker.logic;
 
+import java.util.List;
+
 /**
  * This is just an example to show that the logic should be outside the REST service.
  */
 public class ScenarioQualityChecker {
 
-    private final String[] transforms;
+    private Scenario scenario;
 
-    public ScenarioQualityChecker(String[] transforms){
-        this.transforms = transforms;
+    public ScenarioQualityChecker(String[] args) {
+        // TODO
     }
 
-    public String transform(String text){
-        // of course, normally it would do something based on the transforms
-        return text.toUpperCase();
+    public Integer countAllSteps() {
+        return 0; // TODO
+    }
+
+    public Integer countConditionalDecisions() {
+        return 0; // TODO
+    }
+
+    public List<ScenarioStepComponent> getInvalidSteps() {
+        return null; // TODO
+    }
+
+    public String toText() {
+        return null; // TODO
+    }
+
+    public String toText(Integer maxDepth) {
+        return null; // TODO
     }
 }
