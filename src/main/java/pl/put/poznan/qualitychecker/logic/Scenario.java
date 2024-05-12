@@ -1,7 +1,7 @@
 package pl.put.poznan.qualitychecker.logic;
 
 import java.util.List;
-
+import com.google.gson.*;
 public class Scenario {
 
     private String title;
@@ -9,7 +9,7 @@ public class Scenario {
     private String systemActor;
     private List<ScenarioStepComponent> steps;
 
-    public Scenario(String JSON) {
+    public Scenario(String scenario) {
         // TODO
     }
 
