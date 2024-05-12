@@ -8,10 +8,14 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
     private String text;
     private List<ScenarioStepComponent> substeps;
 
-    public ScenarioStepComposite() {
-        // TODO
+    public ScenarioStepComposite(ScenarioStepCompositeType type, String text) {
+        this.type = type;
+        this.text = text;
     }
 
+    public void addSubstep(ScenarioStepComponent substep) {
+        substeps.add(substep);
+    }
     public ScenarioStepCompositeType getType() {
         return type;
     }
