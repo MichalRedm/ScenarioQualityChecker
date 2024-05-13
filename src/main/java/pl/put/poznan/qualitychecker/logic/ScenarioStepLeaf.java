@@ -4,7 +4,7 @@ public class ScenarioStepLeaf implements ScenarioStepComponent {
 
     private String text;
 
-    public void setText(String text) {
+    public ScenarioStepLeaf(String text) {
         this.text = text;
     }
     @Override

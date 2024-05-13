@@ -11,6 +11,7 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
     public ScenarioStepComposite(ScenarioStepCompositeType type, String text) {
         this.type = type;
         this.text = text;
+        this.substeps = new java.util.ArrayList<>();
     }
 
     public void addSubstep(ScenarioStepComponent substep) {
