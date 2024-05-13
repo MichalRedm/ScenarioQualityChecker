@@ -16,6 +16,7 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
     public void addSubstep(ScenarioStepComponent substep) {
         substeps.add(substep);
     }
+
     public ScenarioStepCompositeType getType() {
         return type;
     }
@@ -25,7 +26,16 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
         return text;
     }
 
+    @Override
+    public Integer getTotalStepCount() {
+        return substeps.stream()
+                .map(ScenarioStepComponent::getTotalStepCount)
+                .reduce(0, Integer::sum) + 1;
+    }
+
     public List<ScenarioStepComponent> getSubsteps() {
         return substeps;
     }
+
+
 }

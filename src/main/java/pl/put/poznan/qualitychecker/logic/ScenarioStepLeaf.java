@@ -11,4 +11,9 @@ public class ScenarioStepLeaf implements ScenarioStepComponent {
     public String getText() {
         return text;
     }
+
+    @Override
+    public Integer getTotalStepCount() {
+        return 1;
+    }
 }
