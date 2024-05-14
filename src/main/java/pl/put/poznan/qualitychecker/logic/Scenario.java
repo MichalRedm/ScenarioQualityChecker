@@ -11,41 +11,77 @@ public class Scenario {
     private List<ScenarioStepComponent> steps;
 
     public Scenario(String scenario) {
+        // Replace all tabs with 4 spaces
+        scenario = scenario.replaceAll("\t", "    ");
+
         // Parse the scenario string
         Scanner lineScanner = new Scanner(scenario);
+
         title = lineScanner.nextLine().substring(7).trim();
-        actors = List.of(lineScanner.nextLine().substring(8).split(","));
+        actors = List.of(lineScanner.nextLine().substring(8).split(",(\\s)*"));
         systemActor = lineScanner.nextLine().substring(14).trim();
-        steps = new java.util.ArrayList<>();
-        System.out.println("the title is: " + title);
-        System.out.println("the actors are: " + actors);
-        System.out.println("the system actor is: " + systemActor);
+
+//        System.out.println("the title is: " + title);
+//        System.out.println("the actors are: " + actors);
+//        System.out.println("the system actor is: " + systemActor);
+
+        steps = new ArrayList<>();
+
+        int spacesPerIndent = -1;
+        int expectedIndent = 0;
+
+        Stack<ScenarioStepComposite> stack = new Stack<>();
+
         while (lineScanner.hasNextLine()) {
             String line = lineScanner.nextLine();
+            int indent;
             if (line.isEmpty()) {
                 continue;
             } else {
-                line = line.substring(2);
+                int leadingSpaces = leadingSpacesCount(line);
+                if (spacesPerIndent == -1 && leadingSpaces > 0) {
+                    spacesPerIndent = leadingSpaces;
+                }
+                line = line.substring(leadingSpaces + 1).trim();
+                indent = leadingSpaces / spacesPerIndent;
+                if (indent < expectedIndent) {
+                    for (int i = 0; i < expectedIndent - indent; i++) {
+                        stack.pop();
+                    }
+                } else if (indent > expectedIndent + 1) {
+                    throw new RuntimeException("Invalid indentation encountered.");
+                }
             }
-            System.out.println(line);
             // check if the line is a composite step
-            if (line.startsWith("IF:")) {
-                ScenarioStepComposite step = new ScenarioStepComposite(ScenarioStepCompositeType.IF, line.substring(4));
-                steps.add(step);
-            } else if (line.startsWith("ELSE:")) {
-                ScenarioStepComposite step = new ScenarioStepComposite(ScenarioStepCompositeType.ELSE, line.substring(6));
-                steps.add(step);
-            } else if (line.startsWith("FOR EACH:")) {
-                ScenarioStepComposite step = new ScenarioStepComposite(ScenarioStepCompositeType.FOR_EACH, line.substring(9));
-                steps.add(step);
+            if (line.startsWith("IF:") || line.startsWith("ELSE:") || line.startsWith("FOR EACH:")) {
+                ScenarioStepCompositeType type;
+                if (line.startsWith("IF:")) {
+                    type = ScenarioStepCompositeType.IF;
+                } else if (line.startsWith("ELSE:")) {
+                    type = ScenarioStepCompositeType.ELSE;
+                } else {
+                    type = ScenarioStepCompositeType.FOR_EACH;
+                }
+                var step = new ScenarioStepComposite(type, line.substring(line.indexOf(":") + 1).trim());
+                expectedIndent = indent + 1;
+                if (stack.isEmpty()) {
+                    steps.add(step);
+                } else {
+                    stack.peek().addSubstep(step);
+                }
+                stack.push(step);
             } else {
                 ScenarioStepLeaf step = new ScenarioStepLeaf();
                 step.setText(line);
-                steps.add(step);
+                if (stack.isEmpty()) {
+                    steps.add(step);
+                } else {
+                    stack.peek().addSubstep(step);
+                }
+                expectedIndent = indent;
             }
 
         }
-        System.out.println("the steps are: " + steps);
     }
 
     public String toJSON() {
@@ -88,5 +124,17 @@ public class Scenario {
             }
         }
         return allSteps;
+    }
+
+    private static Integer leadingSpacesCount(String s) {
+        Integer result = 0;
+        for (char c : s.toCharArray()) {
+            if (c == ' ') {
+                result++;
+            } else {
+                break;
+            }
+        }
+        return result;
     }
 }
