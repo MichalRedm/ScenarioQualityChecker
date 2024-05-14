@@ -18,10 +18,7 @@ public class ScenarioQualityChecker {
      * including steps that are in all nested scenarios.
      */
     public Integer countAllSteps() {
-        return scenario.getSteps()
-                .stream()
-                .map(ScenarioStepComponent::getTotalStepCount)
-                .reduce(0, Integer::sum);
+        return scenario.getAllSteps().size();
     }
 
     public Integer countConditionalDecisions() {
