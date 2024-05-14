@@ -17,8 +17,15 @@ public class ScenarioQualityChecker {
         return 0; // TODO
     }
 
+    /**
+     * @return Number of all conditional decisions in the scenario.
+     */
     public Integer countConditionalDecisions() {
-        return 0; // TODO
+        return scenario.getAllSteps()
+                .stream()
+                .filter(step -> step instanceof ScenarioStepComposite)
+                .map(e -> 1)
+                .reduce(0, Integer::sum);
     }
 
     public List<ScenarioStepComponent> getInvalidSteps() {
