@@ -11,6 +11,9 @@ public class Scenario {
     private List<ScenarioStepComponent> steps;
 
     public Scenario(String scenario) {
+        // Replace all tabs with 4 spaces
+        scenario = scenario.replaceAll("\t", "    ");
+
         // Parse the scenario string
         Scanner lineScanner = new Scanner(scenario);
 
