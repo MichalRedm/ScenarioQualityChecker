@@ -1,7 +1,7 @@
 package pl.put.poznan.qualitychecker.logic;
 
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 import com.google.gson.*;
 public class Scenario {
 
@@ -67,5 +67,26 @@ public class Scenario {
 
     public List<ScenarioStepComponent> getSteps() {
         return steps;
+    }
+
+    public List<ScenarioStepComponent> getAllSteps() {
+        var stack = new Stack<ScenarioStepComponent>();
+        List<ScenarioStepComponent> allSteps = new LinkedList<>();
+        int stepsSize = steps.size();
+        for (int i = 0; i < stepsSize; i++) {
+            stack.push(steps.get(stepsSize - i - 1));
+        }
+        while (!stack.isEmpty()) {
+            var step = stack.pop();
+            allSteps.add(step);
+            if (step instanceof ScenarioStepComposite) {
+                var substeps = ((ScenarioStepComposite) step).getSubsteps();
+                int substepsSize = substeps.size();
+                for (int j = 0; j < substepsSize; j++) {
+                    stack.push(substeps.get(substepsSize - j - 1));
+                }
+            }
+        }
+        return allSteps;
     }
 }
