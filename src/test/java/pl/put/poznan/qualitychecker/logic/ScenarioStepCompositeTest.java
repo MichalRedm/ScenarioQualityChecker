@@ -24,6 +24,11 @@ class ScenarioStepCompositeTest {
         stepLeafMock = null;
     }
 
+    /**
+     * This test checks whether method .getTotalStepCount() for class
+     * ScenarioStepComposite works properly in the simplest case when
+     * its substeps are only of type ScenarioStepLeaf.
+     */
     @Test
     public void testBasicTotalStepCount() {
         var stepComposite = new ScenarioStepComposite(ScenarioStepCompositeType.IF, "Lorem ipsum");
@@ -34,6 +39,12 @@ class ScenarioStepCompositeTest {
         assertEquals(n + 1, stepComposite.getTotalStepCount());
     }
 
+    /**
+     * This test checks whether method .getTotalStepCount() for class
+     * ScenarioStepComposite works properly in a complex case
+     * its substeps are both of type ScenarioStepLeaf and ScenarioStepComposite
+     * with other steps having a higher level of nesting.
+     */
     @Test
     public void testComplexTotalStepCount() {
         var stepComposite = new ScenarioStepComposite(ScenarioStepCompositeType.IF, "Lorem ipsum");
