@@ -12,7 +12,7 @@ public class ScenarioQualityCheckerApplication {
         SpringApplication.run(ScenarioQualityCheckerApplication.class, args);
         Scenario scenario = new Scenario("""
 Title: Book addition
-Actors: Librarian,TestGuy
+Actors: Librarian, TestGuy
 System actor: System
 
 * Librarian selects options to add a new book item

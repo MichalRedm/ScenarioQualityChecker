@@ -18,7 +18,7 @@ public class Scenario {
         Scanner lineScanner = new Scanner(scenario);
 
         title = lineScanner.nextLine().substring(7).trim();
-        actors = List.of(lineScanner.nextLine().substring(8).split(","));
+        actors = List.of(lineScanner.nextLine().substring(8).split(",(\\s)*"));
         systemActor = lineScanner.nextLine().substring(14).trim();
 
 //        System.out.println("the title is: " + title);
