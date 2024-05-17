@@ -1,8 +1,11 @@
 package pl.put.poznan.qualitychecker.logic;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 import com.google.gson.*;
+
 public class Scenario {
 
     private String title;
@@ -20,10 +23,6 @@ public class Scenario {
         title = lineScanner.nextLine().substring(7).trim();
         actors = List.of(lineScanner.nextLine().substring(8).split(",(\\s)*"));
         systemActor = lineScanner.nextLine().substring(14).trim();
-
-//        System.out.println("the title is: " + title);
-//        System.out.println("the actors are: " + actors);
-//        System.out.println("the system actor is: " + systemActor);
 
         steps = new ArrayList<>();
 
@@ -71,8 +70,7 @@ public class Scenario {
                 }
                 stack.push(step);
             } else {
-                ScenarioStepLeaf step = new ScenarioStepLeaf();
-                step.setText(line);
+                ScenarioStepLeaf step = new ScenarioStepLeaf(line);
                 if (stack.isEmpty()) {
                     steps.add(step);
                 } else {
@@ -84,9 +82,20 @@ public class Scenario {
         }
     }
 
+    private static Integer leadingSpacesCount(String s) {
+        Integer result = 0;
+        for (char c : s.toCharArray()) {
+            if (c == ' ') {
+                result++;
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+
     public String toJSON() {
-        Gson gson = new Gson();
-        return gson.toJson(this);
+        return new Gson().toJson(this);
     }
 
     public String getTitle() {
@@ -124,17 +133,5 @@ public class Scenario {
             }
         }
         return allSteps;
-    }
-
-    private static Integer leadingSpacesCount(String s) {
-        Integer result = 0;
-        for (char c : s.toCharArray()) {
-            if (c == ' ') {
-                result++;
-            } else {
-                break;
-            }
-        }
-        return result;
     }
 }
