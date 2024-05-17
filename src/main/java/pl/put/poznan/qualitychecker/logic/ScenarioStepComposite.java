@@ -1,6 +1,5 @@
 package pl.put.poznan.qualitychecker.logic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ScenarioStepComposite implements ScenarioStepComponent {
@@ -12,12 +11,13 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
     public ScenarioStepComposite(ScenarioStepCompositeType type, String text) {
         this.type = type;
         this.text = text;
-        this.substeps = new ArrayList<ScenarioStepComponent>();
+        this.substeps = new java.util.ArrayList<>();
     }
 
     public void addSubstep(ScenarioStepComponent substep) {
         substeps.add(substep);
     }
+
     public ScenarioStepCompositeType getType() {
         return type;
     }
@@ -30,4 +30,6 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
     public List<ScenarioStepComponent> getSubsteps() {
         return substeps;
     }
+
+
 }
