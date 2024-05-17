@@ -30,9 +30,12 @@ public class ScenarioQualityCheckerController {
         APIInput input = gson.fromJson(jsonBody, APIInput.class);
 
         var qualityChecker = new ScenarioQualityChecker(input.getScenario());
-        var result = qualityChecker.executeActions(input.getActions());
-
-        return new ResponseEntity<>(gson.toJson(result), HttpStatus.OK);
+        try {
+            var result = qualityChecker.executeActions(input.getActions());
+            return new ResponseEntity<>(gson.toJson(result), HttpStatus.OK);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
 }
