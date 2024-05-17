@@ -11,8 +11,6 @@ import pl.put.poznan.qualitychecker.logic.ScenarioQualityChecker;
 import pl.put.poznan.qualitychecker.logic.ScenarioStepComponent;
 import pl.put.poznan.qualitychecker.logic.ScenarioStepComponentDeserializer;
 
-import java.util.Arrays;
-
 @RestController
 @RequestMapping("/")
 public class ScenarioQualityCheckerController {
@@ -20,16 +18,8 @@ public class ScenarioQualityCheckerController {
     private static final Logger logger = LoggerFactory.getLogger(ScenarioQualityCheckerController.class);
 
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public String get(@PathVariable String text,
-                              @RequestParam(value="args", defaultValue="upper,escape") String[] args) {
-
-        // log the parameters
-        logger.debug(text);
-        logger.debug(Arrays.toString(args));
-
-        // perform the transformation, you should run your logic here, below is just a silly example
-        ScenarioQualityChecker qualityChecker = new ScenarioQualityChecker(null, args);
-        return null;
+    public ResponseEntity<String> get(@RequestBody String jsonBody) {
+        return post(jsonBody);
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
