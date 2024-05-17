@@ -94,19 +94,8 @@ public class Scenario {
         return result;
     }
 
-//    public static Scenario fromString(String scenario) {
-//
-//    }
-
     public String toJSON() {
-        Gson gson = new Gson();
-        // write JSON to a file
-//        try (FileWriter writer = new FileWriter("scenario.json")) {
-//            gson.toJson(this, writer);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-        return gson.toJson(this);
+        return new Gson().toJson(this);
     }
 
     public String getTitle() {
