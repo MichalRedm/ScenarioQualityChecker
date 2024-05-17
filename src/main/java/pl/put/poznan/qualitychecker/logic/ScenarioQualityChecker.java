@@ -9,7 +9,7 @@ public class ScenarioQualityChecker {
 
     private Scenario scenario;
 
-    public ScenarioQualityChecker(Scenario scenario, String[] actions) {
+    public ScenarioQualityChecker(Scenario scenario, List<String> actions) {
         // TODO
     }
 

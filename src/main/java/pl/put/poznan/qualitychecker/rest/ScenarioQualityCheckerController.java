@@ -29,7 +29,7 @@ public class ScenarioQualityCheckerController {
         Gson gson = gsonBuilder.create();
         APIInput input = gson.fromJson(jsonBody, APIInput.class);
 
-        var qualityChecker = new ScenarioQualityChecker(input.getScenario(), input.getActions().toArray(new String[0]));
+        var qualityChecker = new ScenarioQualityChecker(input.getScenario(), input.getActions());
 
         // TODO: return proper response
         return new ResponseEntity<>("{\"message\": \"Received JSON data successfully\"}", HttpStatus.OK);
