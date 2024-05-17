@@ -17,6 +17,7 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
     public void addSubstep(ScenarioStepComponent substep) {
         substeps.add(substep);
     }
+
     public ScenarioStepCompositeType getType() {
         return type;
     }
@@ -29,4 +30,6 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
     public List<ScenarioStepComponent> getSubsteps() {
         return substeps;
     }
+
+
 }

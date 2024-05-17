@@ -36,8 +36,12 @@ public class ScenarioQualityChecker {
         return result;
     }
 
+    /**
+     * @return The total number of steps within a scenario,
+     * including steps that are in all nested scenarios.
+     */
     public Integer countAllSteps() {
-        return 0; // TODO
+        return scenario.getAllSteps().size();
     }
 
     public Integer countConditionalDecisions() {
