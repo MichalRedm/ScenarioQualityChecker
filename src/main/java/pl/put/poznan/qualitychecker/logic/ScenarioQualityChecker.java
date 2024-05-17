@@ -1,5 +1,6 @@
 package pl.put.poznan.qualitychecker.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,7 +57,24 @@ public class ScenarioQualityChecker {
     }
 
     public List<ScenarioStepComponent> getInvalidSteps() {
-        return null; // TODO
+        List<ScenarioStepComponent> steps = scenario.getAllSteps();
+        List<String> actors = scenario.getActors();
+
+        List<ScenarioStepComponent> invalidSteps = new ArrayList<>();
+        for (ScenarioStepComponent step : steps) {
+            Boolean contain = false;
+            for (String actor : actors) {
+                if(step.getText().startsWith(actor)) {
+                    contain = true;
+                    break;
+                }
+            }
+            if (!contain) {
+                invalidSteps.add(step);
+            }
+        }
+
+        return invalidSteps;
     }
 
     public String toText() {
