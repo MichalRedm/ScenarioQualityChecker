@@ -1,14 +1,20 @@
 package pl.put.poznan.qualitychecker.rest;
+
+import com.google.gson.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.put.poznan.qualitychecker.logic.APIInput;
 import pl.put.poznan.qualitychecker.logic.ScenarioQualityChecker;
+import pl.put.poznan.qualitychecker.logic.ScenarioStepComponent;
+import pl.put.poznan.qualitychecker.logic.ScenarioStepComponentDeserializer;
 
 import java.util.Arrays;
 
-
 @RestController
-@RequestMapping("/{text}")
+@RequestMapping("/")
 public class ScenarioQualityCheckerController {
 
     private static final Logger logger = LoggerFactory.getLogger(ScenarioQualityCheckerController.class);
@@ -22,24 +28,22 @@ public class ScenarioQualityCheckerController {
         logger.debug(Arrays.toString(args));
 
         // perform the transformation, you should run your logic here, below is just a silly example
-        ScenarioQualityChecker qualityChecker = new ScenarioQualityChecker(args);
+        ScenarioQualityChecker qualityChecker = new ScenarioQualityChecker(null, args);
         return null;
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
-    public String post(@PathVariable String text,
-                      @RequestBody String[] args) {
+    public ResponseEntity<String> post(@RequestBody String jsonBody) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(ScenarioStepComponent.class, new ScenarioStepComponentDeserializer());
+        Gson gson = gsonBuilder.create();
+        APIInput input = gson.fromJson(jsonBody, APIInput.class);
 
-        // log the parameters
-        logger.debug(text);
-        logger.debug(Arrays.toString(args));
+        var qualityChecker = new ScenarioQualityChecker(input.getScenario(), input.getActions().toArray(new String[0]));
 
-        // perform the transformation, you should run your logic here, below is just a silly example
-        ScenarioQualityChecker qualityChecker = new ScenarioQualityChecker(args);
-        return null;
+        // TODO: return proper response
+        return new ResponseEntity<>("{\"message\": \"Received JSON data successfully\"}", HttpStatus.OK);
     }
-
-
 
 }
 

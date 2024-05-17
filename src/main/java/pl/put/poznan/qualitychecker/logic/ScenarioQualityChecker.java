@@ -9,7 +9,7 @@ public class ScenarioQualityChecker {
 
     private Scenario scenario;
 
-    public ScenarioQualityChecker(String[] args) {
+    public ScenarioQualityChecker(Scenario scenario, String[] args) {
         // TODO
     }
 
