@@ -33,7 +33,7 @@ public class ScenarioQualityCheckerController {
         try {
             var result = qualityChecker.executeActions(input.getActions());
             return new ResponseEntity<>(gson.toJson(result), HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
+        } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
