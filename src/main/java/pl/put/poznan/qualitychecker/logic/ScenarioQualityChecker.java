@@ -1,16 +1,39 @@
 package pl.put.poznan.qualitychecker.logic;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This is just an example to show that the logic should be outside the REST service.
  */
 public class ScenarioQualityChecker {
 
-    private Scenario scenario;
+    private final Scenario scenario;
 
-    public ScenarioQualityChecker(String[] args) {
-        // TODO
+    public ScenarioQualityChecker(Scenario scenario) {
+        this.scenario = scenario;
+    }
+
+    public Map<String, Object> executeActions(List<String> actions) {
+        Map<String, Object> result = new HashMap<>();
+        for (var action : actions) {
+            switch (action) {
+                case "countAllSteps" -> result.put(action, countAllSteps());
+                case "countConditionalDecisions" -> result.put(action, countConditionalDecisions());
+                case "getInvalidSteps" -> result.put(action, getInvalidSteps());
+                case "toText" -> result.put(action, toText());
+                default -> {
+                    if (action.startsWith("simplify")) {
+                        int depth = Integer.parseInt(action.substring("simplify".length()));
+                        result.put(action, simplify(depth));
+                    } else {
+                        throw new IllegalArgumentException("Invalid action: " + action);
+                    }
+                }
+            }
+        }
+        return result;
     }
 
     public Integer countAllSteps() {
@@ -29,7 +52,7 @@ public class ScenarioQualityChecker {
         return null; // TODO
     }
 
-    public String toText(Integer maxDepth) {
+    public Scenario simplify(Integer maxDepth) {
         return null; // TODO
     }
 }
