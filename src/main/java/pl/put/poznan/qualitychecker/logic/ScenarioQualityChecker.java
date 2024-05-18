@@ -107,6 +107,7 @@ public class ScenarioQualityChecker {
         return text.toString();
     }
 
+    // helper function for toText
     public String toTextComponent(ScenarioStepComposite parentStep, String prefix) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < parentStep.getSubsteps().size(); i++) {
@@ -121,6 +122,36 @@ public class ScenarioQualityChecker {
     }
 
     public Scenario simplify(Integer maxDepth) {
-        return null; // TODO
+        String actors = String.join(", ", scenario.getActors());
+        Scenario simplifiedScenario = new Scenario(String.format("""
+                Title: %s
+                Actors: %s
+                System actor: %s""", scenario.getTitle(), actors, scenario.getSystemActor()));
+        int currentDepth = 1;
+        if (maxDepth >= 1) {
+            for (var step : scenario.getSteps()) {
+                if (step instanceof ScenarioStepComposite) {
+                    ScenarioStepComposite newStep = new ScenarioStepComposite(((ScenarioStepComposite) step).getType(), step.getText());
+                    simplifiedScenario.addStep(newStep);
+                    simplifyCompositeHelper(newStep, (ScenarioStepComposite) step, simplifiedScenario, currentDepth + 1, maxDepth);
+                } else {
+                    simplifiedScenario.addStep(step);
+                }
+            }
+        }
+        return simplifiedScenario;
+    }
+    public void simplifyCompositeHelper(ScenarioStepComposite parentStep, ScenarioStepComposite originalParentStep, Scenario simplifiedScenario, int currentDepth, int maxDepth) {
+        if (currentDepth <= maxDepth) {
+            for (var step : originalParentStep.getSubsteps()) {
+                if (step instanceof ScenarioStepComposite) {
+                    ScenarioStepComposite newStep = new ScenarioStepComposite(((ScenarioStepComposite) step).getType(), step.getText());
+                    parentStep.addSubstep(newStep);
+                    simplifyCompositeHelper(newStep, (ScenarioStepComposite) step, simplifiedScenario, currentDepth + 1, maxDepth);
+                } else {
+                    parentStep.addSubstep(step);
+                }
+            }
+        }
     }
 }
