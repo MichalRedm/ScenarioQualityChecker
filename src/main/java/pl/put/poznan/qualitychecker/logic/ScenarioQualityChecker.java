@@ -57,12 +57,12 @@ public class ScenarioQualityChecker {
     }
 
     public List<ScenarioStepComponent> getInvalidSteps() {
-        List<ScenarioStepComponent> steps = scenario.getAllSteps();
-        List<String> actors = scenario.getActors();
+        var steps = scenario.getAllSteps();
+        var actors = scenario.getActors();
 
         List<ScenarioStepComponent> invalidSteps = new ArrayList<>();
-        for (ScenarioStepComponent step : steps) {
-            Boolean contain = false;
+        for (var step : steps) {
+            boolean contain = false;
             for (String actor : actors) {
                 if(step.getText().startsWith(actor)) {
                     contain = true;
