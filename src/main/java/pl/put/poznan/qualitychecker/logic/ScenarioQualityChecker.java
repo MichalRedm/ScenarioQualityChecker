@@ -56,11 +56,15 @@ public class ScenarioQualityChecker {
                 .reduce(0, Integer::sum);
     }
 
+    /**
+     * @return A list of all steps on any level of nesting that do not
+     * start with an actor.
+     */
     public List<ScenarioStepComponent> getInvalidSteps() {
 
         List<ScenarioStepComponent> invalidSteps = new ArrayList<>();
 
-        var actors = scenario.getActors();
+        var actors = scenario.getAllActors();
         for (var step : scenario.getAllSteps()) {
             boolean contain = false;
             for (String actor : actors) {
