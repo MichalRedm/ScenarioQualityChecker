@@ -1,5 +1,6 @@
 package pl.put.poznan.qualitychecker.logic;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,8 +56,29 @@ public class ScenarioQualityChecker {
                 .reduce(0, Integer::sum);
     }
 
+    /**
+     * @return A list of all steps on any level of nesting that do not
+     * start with an actor.
+     */
     public List<ScenarioStepComponent> getInvalidSteps() {
-        return null; // TODO
+
+        List<ScenarioStepComponent> invalidSteps = new ArrayList<>();
+
+        var actors = scenario.getAllActors();
+        for (var step : scenario.getAllSteps()) {
+            boolean contain = false;
+            for (String actor : actors) {
+                if (step.getText().startsWith(actor)) {
+                    contain = true;
+                    break;
+                }
+            }
+            if (!contain) {
+                invalidSteps.add(step);
+            }
+        }
+
+        return invalidSteps;
     }
 
     public String toText() {

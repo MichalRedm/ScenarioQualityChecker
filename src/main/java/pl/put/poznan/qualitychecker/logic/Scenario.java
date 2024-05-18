@@ -134,4 +134,10 @@ public class Scenario {
         }
         return allSteps;
     }
+
+    public List<String> getAllActors() {
+        List<String> allActors = new LinkedList<>(actors);
+        allActors.add(systemActor);
+        return allActors;
+    }
 }
