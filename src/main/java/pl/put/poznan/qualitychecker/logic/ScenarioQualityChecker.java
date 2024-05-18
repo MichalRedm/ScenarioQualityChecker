@@ -65,6 +65,7 @@ public class ScenarioQualityChecker {
         List<ScenarioStepComponent> invalidSteps = new ArrayList<>();
 
         var actors = scenario.getAllActors();
+        actors.add("System");
         for (var step : scenario.getAllSteps()) {
             boolean contain = false;
             for (String actor : actors) {
