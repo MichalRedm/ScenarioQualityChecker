@@ -6,10 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pl.put.poznan.qualitychecker.logic.APIInput;
-import pl.put.poznan.qualitychecker.logic.ScenarioQualityChecker;
-import pl.put.poznan.qualitychecker.logic.ScenarioStepComponent;
-import pl.put.poznan.qualitychecker.logic.ScenarioStepComponentDeserializer;
+import pl.put.poznan.qualitychecker.logic.*;
 
 @RestController
 @RequestMapping("/")
@@ -25,7 +22,7 @@ public class ScenarioQualityCheckerController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity<String> post(@RequestBody String jsonBody) {
         GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(ScenarioStepComponent.class, new ScenarioStepComponentDeserializer());
+        gsonBuilder.registerTypeAdapter(ScenarioStepComponent.class, new ScenarioStepComponentAdapter());
         Gson gson = gsonBuilder.create();
         APIInput input = gson.fromJson(jsonBody, APIInput.class);
 
