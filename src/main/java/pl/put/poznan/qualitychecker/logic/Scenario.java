@@ -140,4 +140,9 @@ public class Scenario {
         allActors.add(systemActor);
         return allActors;
     }
+
+    // add step method
+    public void addStep(ScenarioStepComponent step) {
+        steps.add(step);
+    }
 }
