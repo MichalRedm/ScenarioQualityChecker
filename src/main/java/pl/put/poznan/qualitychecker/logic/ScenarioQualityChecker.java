@@ -72,11 +72,13 @@ public class ScenarioQualityChecker {
             }
         }
         text.append("System actor: ").append(scenario.getSystemActor()).append("\n");
-        text.append("Steps:\n");
+        text.append("\nSteps:\n");
         for (int i = 0; i < scenario.getSteps().size(); i++) {
-            text.append(i+1).append(". ").append(scenario.getSteps().get(i).getText()).append("\n");
             if (scenario.getSteps().get(i) instanceof ScenarioStepComposite) {
+                text.append(i+1).append(". ").append(((ScenarioStepComposite) scenario.getSteps().get(i)).getType()).append(": ").append(scenario.getSteps().get(i).getText()).append("\n");
                 text.append(toTextComponent((ScenarioStepComposite) scenario.getSteps().get(i), String.valueOf(i+1)));
+            } else {
+                text.append(i+1).append(". ").append(scenario.getSteps().get(i).getText()).append("\n");
             }
         }
 
@@ -87,7 +89,7 @@ public class ScenarioQualityChecker {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < parentStep.getSubsteps().size(); i++) {
             if (parentStep.getSubsteps().get(i) instanceof ScenarioStepComposite) {
-                result.append(prefix).append(".").append(i+1).append(".").append(parentStep.getSubsteps().get(i).getText()).append("\n");
+                result.append(prefix).append(".").append(i+1).append(". ").append(((ScenarioStepComposite) parentStep.getSubsteps().get(i)).getType()).append(": ").append(parentStep.getSubsteps().get(i).getText()).append("\n");
                 result.append(toTextComponent((ScenarioStepComposite) parentStep.getSubsteps().get(i), prefix + "." + (i + 1)));
             } else {
                 result.append(prefix).append(".").append(i+1).append(". ").append(parentStep.getSubsteps().get(i).getText()).append("\n");
