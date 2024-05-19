@@ -10,7 +10,7 @@ public interface ScenarioStepComponent {
      * @return Text within a step.
      */
     public String getText();
-    
+
     /**
      * Accepts a {@link Visitor}.
      * @param visitor Visitor to be accepted.

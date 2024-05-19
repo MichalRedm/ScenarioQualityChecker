@@ -1,5 +1,11 @@
 package pl.put.poznan.qualitychecker.logic;
 
+/**
+ * Class implementing logic for counting all
+ * conditional decisions within a given scenario
+ * (number of instances of class {@link ScenarioStepComposite}
+ * within all steps).
+ */
 public class ScenarioCountConditionalDecisionsVisitor implements Visitor {
 
     @Override

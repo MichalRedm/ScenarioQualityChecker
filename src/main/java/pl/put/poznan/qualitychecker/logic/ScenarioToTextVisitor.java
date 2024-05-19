@@ -1,10 +1,17 @@
 package pl.put.poznan.qualitychecker.logic;
 
+/**
+ * Class implementing logic for transforming
+ * given scenario into text.
+ */
 public class ScenarioToTextVisitor implements Visitor {
 
+    /** Counter used by the algorithm. */
     private Integer i;
+    /** Scenario to be transformed into text. */
     private Scenario scenario;
 
+    @Override
     public String visitScenario(Scenario scenario) {
         this.scenario = scenario;
         StringBuilder text = new StringBuilder();
@@ -28,6 +35,17 @@ public class ScenarioToTextVisitor implements Visitor {
         return text.toString();
     }
 
+    @Override
+    public String visitStepComposite(ScenarioStepComposite stepComposite) {
+        return (i + 1) + ". " + stepComposite.getType() + ": " + stepComposite.getText() + "\n" +
+                toTextComponent(stepComposite, String.valueOf(i + 1));
+    }
+
+    @Override
+    public String visitStepLeaf(ScenarioStepLeaf stepLeaf) {
+        return (i + 1) + ". " + stepLeaf.getText() + "\n";
+    }
+
     /**
      * Helper function for the method toText().
      * @param parentStep
@@ -46,16 +64,5 @@ public class ScenarioToTextVisitor implements Visitor {
             }
         }
         return result.toString();
-    }
-
-    @Override
-    public String visitStepComposite(ScenarioStepComposite stepComposite) {
-        return (i + 1) + ". " + stepComposite.getType() + ": " + stepComposite.getText() + "\n" +
-                toTextComponent(stepComposite, String.valueOf(i + 1));
-    }
-
-    @Override
-    public String visitStepLeaf(ScenarioStepLeaf stepLeaf) {
-        return (i + 1) + ". " + stepLeaf.getText() + "\n";
     }
 }

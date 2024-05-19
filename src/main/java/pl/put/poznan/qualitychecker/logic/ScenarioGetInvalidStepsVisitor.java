@@ -3,9 +3,15 @@ package pl.put.poznan.qualitychecker.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class implementing logic for finding all
+ * steps that do not start with an actor
+ * within a given scenario.
+ */
 public class ScenarioGetInvalidStepsVisitor implements Visitor {
 
-    private List<String> actors;
+    /** List af all actors within the analyzed scenario. */
+    private List<String> actors = new ArrayList<>();
 
     @Override
     public List<ScenarioStepComponent> visitScenario(Scenario scenario) {

@@ -1,7 +1,12 @@
 package pl.put.poznan.qualitychecker.logic;
 
+/**
+ * Class implementing logic for counting all steps
+ * within a given scenario.
+ */
 public class ScenarioCountAllStepsVisitor implements Visitor {
 
+    @Override
     public Integer visitScenario(Scenario scenario) {
         return scenario.getSteps()
                 .stream()
