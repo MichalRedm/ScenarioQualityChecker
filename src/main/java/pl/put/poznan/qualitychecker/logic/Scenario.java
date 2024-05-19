@@ -6,13 +6,22 @@ import java.util.*;
 
 import com.google.gson.*;
 
+/** Representation of a single scenario. */
 public class Scenario {
 
+    /** Title of the scenario. */
     private String title;
+    /** List of names of all the actors. */
     private List<String> actors;
+    /** Name of the system actor. */
     private String systemActor;
+    /** List of steps within a scenario. */
     private List<ScenarioStepComponent> steps;
 
+    /**
+     * Creates a new instance of class Scenario.
+     * @param scenario Textual representation of a scenario.
+     */
     public Scenario(String scenario) {
         // Replace all tabs with 4 spaces
         scenario = scenario.replaceAll("\t", "    ");
@@ -82,6 +91,12 @@ public class Scenario {
         }
     }
 
+    /**
+     * Helper function for parsing textual representation of a scenario.
+     * Counts the number of leading spaces in a string.
+     * @param s String to be analyzed.
+     * @return Number of leading spaces.
+     */
     private static Integer leadingSpacesCount(String s) {
         Integer result = 0;
         for (char c : s.toCharArray()) {
@@ -94,26 +109,46 @@ public class Scenario {
         return result;
     }
 
+    /**
+     * Transforms the scenario into its JSON representation.
+     * @return JSON string representing the scenario.
+     */
     public String toJSON() {
         return new Gson().toJson(this);
     }
 
+    /**
+     * @return Title of the scenario.
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @return List of names of all the actors.
+     */
     public List<String> getActors() {
         return actors;
     }
 
+    /**
+     * @return Name of the system actor.
+     */
     public String getSystemActor() {
         return systemActor;
     }
 
+    /**
+     * @return List of steps within a scenario.
+     */
     public List<ScenarioStepComponent> getSteps() {
         return steps;
     }
 
+    /**
+     * @return List of all steps within scenario (at any level of nesting)
+     * in proper order.
+     */
     public List<ScenarioStepComponent> getAllSteps() {
         var stack = new Stack<ScenarioStepComponent>();
         List<ScenarioStepComponent> allSteps = new LinkedList<>();
@@ -135,13 +170,20 @@ public class Scenario {
         return allSteps;
     }
 
+    /**
+     * @return List of all actors for a scenario - including
+     * the system actor.
+     */
     public List<String> getAllActors() {
         List<String> allActors = new LinkedList<>(actors);
         allActors.add(systemActor);
         return allActors;
     }
 
-    // add step method
+    /**
+     * Adds a step to the scenario.
+     * @param step Step to be added.
+     */
     public void addStep(ScenarioStepComponent step) {
         steps.add(step);
     }
