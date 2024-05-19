@@ -36,13 +36,17 @@ System actor: System
 * System informs about the correct addition of the book.
 ```
 
+## Backlog
+
+[Here](https://docs.google.com/spreadsheets/d/11QnRBhp2aYy2u0Iwbr8FGHB5VYHG_Fb6) is an Excel spreadsheet containing the Sprint and Product backlog for our project.
+
 ## Project structure
 
 ![UML diagram](https://raw.githubusercontent.com/MichalRedm/ScenarioQualityChecker/main/src/main/resources/logic.png "UML diagram")
 
 ## Usage
 
-The application should be run with Java 17; when it is running, the REST API endpoint will be located at port `8080`. The API accepts GET and POST requests. The body of every request should be JSON with two fields: `scenario` containing JSON representation of a scenario and `actions` is the list of actions that should be performed on the provided scenario by the application. An example of a valid request body (the scenario here corresponds to an exemplary scenario provided earlier):
+The application should be run with Java 17; when it is running, the REST API endpoint will be located at port `8080`. The API accepts GET and POST requests. The body of every POST request should be JSON with field `scenario` containing JSON representation of a scenario. An example of a valid POST request body (the scenario here corresponds to an exemplary scenario provided earlier):
 ```json
 {
     "scenario": {
@@ -98,25 +102,94 @@ The application should be run with Java 17; when it is running, the REST API end
                 "text": "System informs about the correct addition of the book."
             }
         ]
-    },
-    "actions": ["countAllSteps"]
+    }
 }
 ```
+If everything goes well, server will respond with success message and save the scenario.
 
-The supported actions are:
+The GET request should also be a JSON, with field `actions` that should be the list of actions to be performed on the provided scenario by the application. The supported actions are:
 - `countAllSteps` - provides the total number of steps in the scenario (at any level of nesting);
 - `countConditionalDecisions` - counts the total number of all conditional decisions within a scenario;
 - `getInvalidSteps` - provides a list of steps that do not start with an actor or system actor;
 - `toText` - transforms the scenario to a textual format with step numbering;
 - `simplify<depth>` - provides a simpler version of a scenario, reduced to a certain level of nesting.
 
-If the provided request is correct, the system should return a response in JSON format; it will have the form of a dictionary, in which keys will be the actions and values will be results produced by the application. Example for the request provided earlier:
+An example o valid GET request body:
 ```json
 {
-  "countAllSteps": 13
+    "actions": [
+        "countAllSteps", 
+        "countConditionalDecisions",
+        "getInvalidSteps",
+        "toText",
+        "simplify1"
+    ]
 }
 ```
-If the request is invalid, the system will produce an error `500 Bad Request` and return an error message via the API.
+
+If the provided request is correct, the system should return a response in JSON format; it will have the form of a dictionary, in which keys will be the actions and values will be results produced by the application. Example response for the requests provided earlier:
+```json
+{
+  "countConditionalDecisions": 2,
+  "getInvalidSteps": [
+    {
+      "text": "A form is displayed."
+    },
+    {
+      "type": "FOR_EACH",
+      "text": " instance:",
+      "substeps": [
+        {
+          "text": "Librarian chooses to add an instance"
+        },
+        {
+          "text": "System prompts to enter the instance details"
+        },
+        {
+          "text": "Librarian enters the instance details and confirms them."
+        },
+        {
+          "text": "System informs about the correct addition of an instance and presents the updated list of instances."
+        }
+      ]
+    }
+  ],
+  "simplify1": {
+    "title": "Book addition",
+    "actors": [
+      "Librarian",
+      "TestGuy"
+    ],
+    "systemActor": "System",
+    "steps": [
+      {
+        "text": "Librarian selects options to add a new book item"
+      },
+      {
+        "text": "A form is displayed."
+      },
+      {
+        "text": "Librarian provides the details of the book."
+      },
+      {
+        "type": "IF",
+        "text": "Librarian wishes to add copies of the book",
+        "substeps": []
+      },
+      {
+        "text": "Librarian confirms book addition."
+      },
+      {
+        "text": "System informs about the correct addition of the book."
+      }
+    ]
+  },
+  "countAllSteps": 13,
+  "toText": "Title: Book addition\nActors: Librarian, TestGuy \nSystem actor: System\n\nSteps:\n1. Librarian selects options to add a new book item\n2. A form is displayed.\n3. Librarian provides the details of the book.\n4. IF: Librarian wishes to add copies of the book\n4.1. Librarian chooses to define instances\n4.2. System presents defined instances\n4.3. FOR_EACH:  instance:\n4.3.1. Librarian chooses to add an instance\n4.3.2. System prompts to enter the instance details\n4.3.3. Librarian enters the instance details and confirms them.\n4.3.4. System informs about the correct addition of an instance and presents the updated list of instances.\n5. Librarian confirms book addition.\n6. System informs about the correct addition of the book.\n"
+}
+```
+
+If any request is invalid, the system will produce an error `500 Bad Request` and return an error message via the API.
 
 ## Testing with Postman
 
