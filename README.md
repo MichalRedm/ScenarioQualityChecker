@@ -36,6 +36,10 @@ System actor: System
 * System informs about the correct addition of the book.
 ```
 
+## Project structure
+
+![UML diagram](https://raw.githubusercontent.com/MichalRedm/ScenarioQualityChecker/main/src/main/resources/logic.png "UML diagram")
+
 ## Usage
 
 The application should be run with Java 17; when it is running, the REST API endpoint will be located at port `8080`. The API accepts GET and POST requests. The body of every request should be JSON with two fields: `scenario` containing JSON representation of a scenario and `actions` is the list of actions that should be performed on the provided scenario by the application. An example of a valid request body (the scenario here corresponds to an exemplary scenario provided earlier):
