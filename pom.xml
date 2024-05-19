@@ -108,7 +108,7 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
                             <mainClass>
-                                com.baeldung.executable.ExecutableMavenJar
+                                pl.put.poznan.qualitychecker.app.ScenarioQualityCheckerApplication
                             </mainClass>
                         </manifest>
                     </archive>
