@@ -61,7 +61,7 @@ public class ScenarioQualityChecker {
      * @return The number of all steps in the scenario.
      */
     public Integer countAllSteps() {
-        return scenario.getAllSteps().size();
+        return new ScenarioCountAllStepsVisitor().countAllSteps(scenario);
     }
 
     /**
