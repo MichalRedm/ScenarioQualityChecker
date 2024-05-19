@@ -4,6 +4,8 @@ Repository for Software Engineering project at Poznań University of Technology.
 
 [![Java CI with Maven](https://github.com/MichalRedm/ScenarioQualityChecker/actions/workflows/maven.yml/badge.svg)](https://github.com/MichalRedm/ScenarioQualityChecker/actions/workflows/maven.yml)
 
+[![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://MichalRedm.github.io/ScenarioQualityChecker/javadoc/)
+
 [<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/23212826-bddb4048-399e-4562-81ee-76f6adc5e77e?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D23212826-bddb4048-399e-4562-81ee-76f6adc5e77e%26entityType%3Dcollection%26workspaceId%3D9cf44873-c2dc-491d-952b-e2bb3006bedf)
 
 ## Description of the project
