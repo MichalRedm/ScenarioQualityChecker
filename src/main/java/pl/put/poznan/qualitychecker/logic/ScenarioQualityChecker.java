@@ -15,6 +15,10 @@ public class ScenarioQualityChecker {
     /** Scenario on which ScenarioQualityChecker will operate. */
     private final Scenario scenario;
 
+    /**
+     * Creates a new instance of class {@link ScenarioQualityChecker}.
+     * @param scenario Scenario on which ScenarioQualityChecker will operate.
+     */
     public ScenarioQualityChecker(Scenario scenario) {
         this.scenario = scenario;
     }
@@ -24,7 +28,7 @@ public class ScenarioQualityChecker {
      * @param actions List of actions to be executed. Names of the
      *                actions should correspond to names of methods
      *                of this class (one exception is action
-     *                'simplify<depth>`, where depth is the parameter
+     *                'simplify[depth]`, where depth is the parameter
      *                of method simplify().
      * @return Dictionary mapping names of the actions to their results.
      */
