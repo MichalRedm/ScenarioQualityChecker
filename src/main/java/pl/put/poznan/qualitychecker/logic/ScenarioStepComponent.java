@@ -9,4 +9,6 @@ public interface ScenarioStepComponent {
      * @return Text within a step.
      */
     public String getText();
+
+    public Object accept(Visitor visitor);
 }
