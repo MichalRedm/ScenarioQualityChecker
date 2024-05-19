@@ -109,7 +109,7 @@ public class ScenarioQualityChecker {
     }
 
     // helper function for toText
-    public String toTextComponent(ScenarioStepComposite parentStep, String prefix) {
+    private String toTextComponent(ScenarioStepComposite parentStep, String prefix) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < parentStep.getSubsteps().size(); i++) {
             if (parentStep.getSubsteps().get(i) instanceof ScenarioStepComposite) {
@@ -142,7 +142,8 @@ public class ScenarioQualityChecker {
         }
         return simplifiedScenario;
     }
-    public void simplifyCompositeHelper(ScenarioStepComposite parentStep, ScenarioStepComposite originalParentStep, Scenario simplifiedScenario, int currentDepth, int maxDepth) {
+
+    private void simplifyCompositeHelper(ScenarioStepComposite parentStep, ScenarioStepComposite originalParentStep, Scenario simplifiedScenario, int currentDepth, int maxDepth) {
         if (currentDepth <= maxDepth) {
             for (var step : originalParentStep.getSubsteps()) {
                 if (step instanceof ScenarioStepComposite) {
