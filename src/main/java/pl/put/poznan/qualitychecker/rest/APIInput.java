@@ -1,4 +1,6 @@
-package pl.put.poznan.qualitychecker.logic;
+package pl.put.poznan.qualitychecker.rest;
+
+import pl.put.poznan.qualitychecker.logic.Scenario;
 
 import java.util.List;
 
