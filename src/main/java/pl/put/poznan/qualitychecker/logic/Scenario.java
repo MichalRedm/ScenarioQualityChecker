@@ -6,9 +6,7 @@ import java.util.*;
 
 import com.google.gson.*;
 
-/**
- * Representation of a single scenario.
- */
+/** Representation of a single scenario. */
 public class Scenario {
 
     /** Title of the scenario. */
