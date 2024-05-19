@@ -146,28 +146,12 @@ public class Scenario {
     }
 
     /**
-     * @return List of all steps within scenario (at any level of nesting)
-     * in proper order.
+     * Accepts a {@link Visitor}.
+     * @param visitor Visitor to be accepted.
+     * @return Object returned by the visitor.
      */
-    public List<ScenarioStepComponent> getAllSteps() {
-        var stack = new Stack<ScenarioStepComponent>();
-        List<ScenarioStepComponent> allSteps = new LinkedList<>();
-        int stepsSize = steps.size();
-        for (int i = 0; i < stepsSize; i++) {
-            stack.push(steps.get(stepsSize - i - 1));
-        }
-        while (!stack.isEmpty()) {
-            var step = stack.pop();
-            allSteps.add(step);
-            if (step instanceof ScenarioStepComposite) {
-                var substeps = ((ScenarioStepComposite) step).getSubsteps();
-                int substepsSize = substeps.size();
-                for (int j = 0; j < substepsSize; j++) {
-                    stack.push(substeps.get(substepsSize - j - 1));
-                }
-            }
-        }
-        return allSteps;
+    public Object accept(Visitor visitor) {
+        return visitor.visitScenario(this);
     }
 
     /**

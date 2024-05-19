@@ -18,6 +18,11 @@ public class ScenarioStepLeaf implements ScenarioStepComponent {
         return text;
     }
 
+    @Override
+    public Object accept(Visitor visitor) {
+        return visitor.visitStepLeaf(this);
+    }
+
     public void setText(String text) {
         this.text = text;
     }
