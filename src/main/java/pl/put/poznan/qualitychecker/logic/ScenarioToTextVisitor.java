@@ -5,7 +5,7 @@ public class ScenarioToTextVisitor implements Visitor {
     private Integer i;
     private Scenario scenario;
 
-    public String toText(Scenario scenario) {
+    public String visitScenario(Scenario scenario) {
         this.scenario = scenario;
         StringBuilder text = new StringBuilder();
         text.append("Title: ").append(scenario.getTitle()).append("\n");

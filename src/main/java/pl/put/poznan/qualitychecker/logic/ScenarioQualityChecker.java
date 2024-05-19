@@ -61,7 +61,7 @@ public class ScenarioQualityChecker {
      * @return The number of all steps in the scenario.
      */
     public Integer countAllSteps() {
-        return new ScenarioCountAllStepsVisitor().countAllSteps(scenario);
+        return (Integer) scenario.accept(new ScenarioCountAllStepsVisitor());
     }
 
     /**
@@ -70,11 +70,7 @@ public class ScenarioQualityChecker {
      * @return Number of all conditional decisions in the scenario.
      */
     public Integer countConditionalDecisions() {
-        return scenario.getAllSteps()
-                .stream()
-                .filter(step -> step instanceof ScenarioStepComposite)
-                .map(e -> 1)
-                .reduce(0, Integer::sum);
+        return (Integer) scenario.accept(new ScenarioCountConditionalDecisionsVisitor());
     }
 
     /**
@@ -83,25 +79,7 @@ public class ScenarioQualityChecker {
      * @return A list of all steps found by the method.
      */
     public List<ScenarioStepComponent> getInvalidSteps() {
-
-        List<ScenarioStepComponent> invalidSteps = new ArrayList<>();
-
-        var actors = scenario.getAllActors();
-        actors.add("System");
-        for (var step : scenario.getAllSteps()) {
-            boolean contain = false;
-            for (String actor : actors) {
-                if (step.getText().startsWith(actor)) {
-                    contain = true;
-                    break;
-                }
-            }
-            if (!contain) {
-                invalidSteps.add(step);
-            }
-        }
-
-        return invalidSteps;
+        return (List<ScenarioStepComponent>) scenario.accept(new ScenarioGetInvalidStepsVisitor());
     }
 
     /**
@@ -109,7 +87,7 @@ public class ScenarioQualityChecker {
      * @return String representing the scenario.
      */
     public String toText() {
-        return scenarioToTextVisitor.toText(scenario);
+        return (String) scenario.accept(scenarioToTextVisitor);
     }
 
     /**

@@ -1,8 +1,9 @@
 package pl.put.poznan.qualitychecker.logic;
 
-public class ScenarioCountAllStepsVisitor implements Visitor {
+public class ScenarioCountConditionalDecisionsVisitor implements Visitor {
 
-    public Integer visitScenario(Scenario scenario) {
+    @Override
+    public Object visitScenario(Scenario scenario) {
         return scenario.getSteps()
                 .stream()
                 .map(step -> (Integer) step.accept(this))
@@ -19,6 +20,6 @@ public class ScenarioCountAllStepsVisitor implements Visitor {
 
     @Override
     public Integer visitStepLeaf(ScenarioStepLeaf stepLeaf) {
-        return 1;
+        return 0;
     }
 }
