@@ -4,10 +4,6 @@ Repository for Software Engineering project at Poznań University of Technology.
 
 [![Java CI with Maven](https://github.com/MichalRedm/ScenarioQualityChecker/actions/workflows/maven.yml/badge.svg)](https://github.com/MichalRedm/ScenarioQualityChecker/actions/workflows/maven.yml)
 
-[![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://MichalRedm.github.io/ScenarioQualityChecker/javadoc/)
-
-[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/23212826-bddb4048-399e-4562-81ee-76f6adc5e77e?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D23212826-bddb4048-399e-4562-81ee-76f6adc5e77e%26entityType%3Dcollection%26workspaceId%3D9cf44873-c2dc-491d-952b-e2bb3006bedf)
-
 ## Description of the project
 
 For analysts documenting functional requirements with scenarios, our SQC application will provide quantitative information and enable the detection of problems in functional requirements written in the form of scenarios. The application will be available via GUI and also as a remote API, thanks to which it can be integrated with existing tools.
@@ -117,3 +113,15 @@ If the provided request is correct, the system should return a response in JSON 
 }
 ```
 If the request is invalid, the system will produce an error `500 Bad Request` and return an error message via the API.
+
+## Testing with Postman
+
+A recommended way of testing our API is to use [Postman](https://www.postman.com/).
+
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://app.getpostman.com/run-collection/23212826-bddb4048-399e-4562-81ee-76f6adc5e77e?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D23212826-bddb4048-399e-4562-81ee-76f6adc5e77e%26entityType%3Dcollection%26workspaceId%3D9cf44873-c2dc-491d-952b-e2bb3006bedf)
+
+## Documentation
+
+Auto-generated documentation for our project is available on a GitHub page - see the link below.
+
+[![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://MichalRedm.github.io/ScenarioQualityChecker/javadoc/)
