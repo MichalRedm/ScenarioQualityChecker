@@ -145,6 +145,11 @@ public class Scenario {
         return steps;
     }
 
+    /**
+     * Accepts a {@link Visitor}.
+     * @param visitor Visitor to be accepted.
+     * @return Object returned by the visitor.
+     */
     public Object accept(Visitor visitor) {
         return visitor.visitScenario(this);
     }
