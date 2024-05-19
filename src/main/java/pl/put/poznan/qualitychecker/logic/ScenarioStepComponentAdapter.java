@@ -15,11 +15,11 @@ public class ScenarioStepComponentAdapter implements JsonDeserializer<ScenarioSt
      * This method checks for the presence of the "substeps" field in the JSON object to determine
      * whether to instantiate a {@link ScenarioStepComposite} or {@link ScenarioStepLeaf}.
      *
-     * @param json the JSON data being deserialized
-     * @param typeOfT the type of the Object to deserialize to
-     * @param context the deserialization context
-     * @return the deserialized {@link ScenarioStepComponent} object
-     * @throws JsonParseException if JSON is not in the expected format
+     * @param json The JSON data being deserialized.
+     * @param typeOfT The type of the Object to deserialize to.
+     * @param context The deserialization context.
+     * @return The deserialized {@link ScenarioStepComponent} object.
+     * @throws JsonParseException If JSON is not in the expected format.
      */
     @Override
     public ScenarioStepComponent deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
@@ -38,10 +38,10 @@ public class ScenarioStepComponentAdapter implements JsonDeserializer<ScenarioSt
      * This method checks the type of the {@link ScenarioStepComponent} instance and
      * serializes it as either a {@link ScenarioStepComposite} or {@link ScenarioStepLeaf}.
      *
-     * @param src the source object to serialize
-     * @param typeOfSrc the actual type of the source object
-     * @param context the serialization context
-     * @return the serialized JSON element
+     * @param src The source object to serialize.
+     * @param typeOfSrc The actual type of the source object.
+     * @param context The serialization context.
+     * @return The serialized JSON element.
      */
     @Override
     public JsonElement serialize(ScenarioStepComponent src, Type typeOfSrc, JsonSerializationContext context) {
