@@ -43,6 +43,11 @@ public class ScenarioStepComposite implements ScenarioStepComponent {
         return text;
     }
 
+    @Override
+    public Object accept(Visitor visitor) {
+        return visitor.visitStepComposite(this);
+    }
+
     /**
      * @return List of substeps of the composite step.
      */

@@ -15,6 +15,8 @@ public class ScenarioQualityChecker {
     /** Scenario on which ScenarioQualityChecker will operate. */
     private final Scenario scenario;
 
+    private final static ScenarioToTextVisitor scenarioToTextVisitor = new ScenarioToTextVisitor();
+
     /**
      * Creates a new instance of class {@link ScenarioQualityChecker}.
      * @param scenario Scenario on which ScenarioQualityChecker will operate.
@@ -59,7 +61,7 @@ public class ScenarioQualityChecker {
      * @return The number of all steps in the scenario.
      */
     public Integer countAllSteps() {
-        return scenario.getAllSteps().size();
+        return (Integer) scenario.accept(new ScenarioCountAllStepsVisitor());
     }
 
     /**
@@ -68,11 +70,7 @@ public class ScenarioQualityChecker {
      * @return Number of all conditional decisions in the scenario.
      */
     public Integer countConditionalDecisions() {
-        return scenario.getAllSteps()
-                .stream()
-                .filter(step -> step instanceof ScenarioStepComposite)
-                .map(e -> 1)
-                .reduce(0, Integer::sum);
+        return (Integer) scenario.accept(new ScenarioCountConditionalDecisionsVisitor());
     }
 
     /**
@@ -81,24 +79,7 @@ public class ScenarioQualityChecker {
      * @return A list of all steps found by the method.
      */
     public List<ScenarioStepComponent> getInvalidSteps() {
-
-        List<ScenarioStepComponent> invalidSteps = new ArrayList<>();
-
-        var actors = scenario.getAllActors();
-        for (var step : scenario.getAllSteps()) {
-            boolean contain = false;
-            for (String actor : actors) {
-                if (step.getText().startsWith(actor)) {
-                    contain = true;
-                    break;
-                }
-            }
-            if (!contain) {
-                invalidSteps.add(step);
-            }
-        }
-
-        return invalidSteps;
+        return (List<ScenarioStepComponent>) scenario.accept(new ScenarioGetInvalidStepsVisitor());
     }
 
     /**
@@ -106,48 +87,7 @@ public class ScenarioQualityChecker {
      * @return String representing the scenario.
      */
     public String toText() {
-        StringBuilder text = new StringBuilder();
-        text.append("Title: ").append(scenario.getTitle()).append("\n");
-        text.append("Actors: ");
-        for (var actor : scenario.getActors()) {
-            text.append(actor).append(", ");
-            // delete last comma
-            if (actor.equals(scenario.getActors().get(scenario.getActors().size() - 1))) {
-                text.deleteCharAt(text.length() - 2);
-                text.append("\n");
-            }
-        }
-        text.append("System actor: ").append(scenario.getSystemActor()).append("\n");
-        text.append("\nSteps:\n");
-        for (int i = 0; i < scenario.getSteps().size(); i++) {
-            if (scenario.getSteps().get(i) instanceof ScenarioStepComposite) {
-                text.append(i+1).append(". ").append(((ScenarioStepComposite) scenario.getSteps().get(i)).getType()).append(": ").append(scenario.getSteps().get(i).getText()).append("\n");
-                text.append(toTextComponent((ScenarioStepComposite) scenario.getSteps().get(i), String.valueOf(i+1)));
-            } else {
-                text.append(i+1).append(". ").append(scenario.getSteps().get(i).getText()).append("\n");
-            }
-        }
-
-        return text.toString();
-    }
-
-    /**
-     * Helper function for the method toText().
-     * @param parentStep
-     * @param prefix
-     * @return
-     */
-    private String toTextComponent(ScenarioStepComposite parentStep, String prefix) {
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < parentStep.getSubsteps().size(); i++) {
-            if (parentStep.getSubsteps().get(i) instanceof ScenarioStepComposite) {
-                result.append(prefix).append(".").append(i+1).append(". ").append(((ScenarioStepComposite) parentStep.getSubsteps().get(i)).getType()).append(": ").append(parentStep.getSubsteps().get(i).getText()).append("\n");
-                result.append(toTextComponent((ScenarioStepComposite) parentStep.getSubsteps().get(i), prefix + "." + (i + 1)));
-            } else {
-                result.append(prefix).append(".").append(i+1).append(". ").append(parentStep.getSubsteps().get(i).getText()).append("\n");
-            }
-        }
-        return result.toString();
+        return (String) scenario.accept(scenarioToTextVisitor);
     }
 
     /**
