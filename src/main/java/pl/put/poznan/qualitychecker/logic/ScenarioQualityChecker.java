@@ -6,16 +6,32 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This is just an example to show that the logic should be outside the REST service.
+ * Class containing the main logic of the application. It
+ * has implementations of all operations that can be executed
+ * on a scenario.
  */
 public class ScenarioQualityChecker {
 
+    /** Scenario on which ScenarioQualityChecker will operate. */
     private final Scenario scenario;
 
+    /**
+     * Creates a new instance of class {@link ScenarioQualityChecker}.
+     * @param scenario Scenario on which ScenarioQualityChecker will operate.
+     */
     public ScenarioQualityChecker(Scenario scenario) {
         this.scenario = scenario;
     }
 
+    /**
+     * Executes specified actions on a scenario.
+     * @param actions List of actions to be executed. Names of the
+     *                actions should correspond to names of methods
+     *                of this class (one exception is action
+     *                'simplify[depth]`, where depth is the parameter
+     *                of method simplify().
+     * @return Dictionary mapping names of the actions to their results.
+     */
     public Map<String, Object> executeActions(List<String> actions) {
         Map<String, Object> result = new HashMap<>();
         for (var action : actions) {
@@ -38,14 +54,17 @@ public class ScenarioQualityChecker {
     }
 
     /**
-     * @return The total number of steps within a scenario,
+     * Computes the total number of steps within a scenario,
      * including steps that are in all nested scenarios.
+     * @return The number of all steps in the scenario.
      */
     public Integer countAllSteps() {
         return scenario.getAllSteps().size();
     }
 
     /**
+     * Computes the total number of all conditional decisions in
+     * the scenario (composite steps, starting with a keyword).
      * @return Number of all conditional decisions in the scenario.
      */
     public Integer countConditionalDecisions() {
@@ -57,8 +76,9 @@ public class ScenarioQualityChecker {
     }
 
     /**
-     * @return A list of all steps on any level of nesting that do not
-     * start with an actor.
+     * Finds all steps within a scenario at any level of nesting that
+     * do not start with an actor.
+     * @return A list of all steps found by the method.
      */
     public List<ScenarioStepComponent> getInvalidSteps() {
 
@@ -82,6 +102,10 @@ public class ScenarioQualityChecker {
         return invalidSteps;
     }
 
+    /**
+     * Transforms the scenario into its textual representation.
+     * @return String representing the scenario.
+     */
     public String toText() {
         StringBuilder text = new StringBuilder();
         text.append("Title: ").append(scenario.getTitle()).append("\n");
@@ -108,7 +132,12 @@ public class ScenarioQualityChecker {
         return text.toString();
     }
 
-    // helper function for toText
+    /**
+     * Helper function for the method toText().
+     * @param parentStep
+     * @param prefix
+     * @return
+     */
     private String toTextComponent(ScenarioStepComposite parentStep, String prefix) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < parentStep.getSubsteps().size(); i++) {
@@ -122,6 +151,13 @@ public class ScenarioQualityChecker {
         return result.toString();
     }
 
+    /**
+     * Simplifies the scenario by restricting it to a certain
+     * maximum level of nesting.
+     * @param maxDepth Maximum nesting depth to which the scenario
+     *                 should be restricted.
+     * @return Simplified version of the scenario.
+     */
     public Scenario simplify(Integer maxDepth) {
         String actors = String.join(", ", scenario.getActors());
         Scenario simplifiedScenario = new Scenario(String.format("""
@@ -143,6 +179,14 @@ public class ScenarioQualityChecker {
         return simplifiedScenario;
     }
 
+    /**
+     * Helper function for method simplify().
+     * @param parentStep
+     * @param originalParentStep
+     * @param simplifiedScenario
+     * @param currentDepth
+     * @param maxDepth
+     */
     private void simplifyCompositeHelper(ScenarioStepComposite parentStep, ScenarioStepComposite originalParentStep, Scenario simplifiedScenario, int currentDepth, int maxDepth) {
         if (currentDepth <= maxDepth) {
             for (var step : originalParentStep.getSubsteps()) {
