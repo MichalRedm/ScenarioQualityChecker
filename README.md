@@ -202,3 +202,24 @@ A recommended way of testing our API is to use [Postman](https://www.postman.com
 Auto-generated documentation for our project is available on a GitHub page - see the link below.
 
 [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://MichalRedm.github.io/ScenarioQualityChecker/javadoc/)
+
+## Sprint remind:
+
+* We started the sprint on April 29th
+* During the first week we started planning and created basic project structure on github
+* During the second week we started coding rest API
+, created github actions
+* During the third week we added github issues, which were responsible for most functionalities and we completed all project backlog tasks
+
+## Observations:
+
+* We should have more equal distribution of work
+* We should perform more work earlier
+* We should have more live meetings
+
+## Actions to be taken in the next sprint:
+
+* Distribute work at the beginning
+* Plan what should be done in each week at the beginning
+* Meeting once a week
+
