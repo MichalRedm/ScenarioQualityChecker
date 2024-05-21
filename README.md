@@ -18,7 +18,7 @@ An example of such a scenario:
 
 ```
 Title: Book addition
-Actors:  Librarian
+Actors: Librarian
 System actor: System
 
 * Librarian selects options to add a new book item
