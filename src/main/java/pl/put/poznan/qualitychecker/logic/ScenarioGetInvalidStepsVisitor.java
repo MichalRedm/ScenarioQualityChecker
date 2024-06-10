@@ -42,7 +42,7 @@ public class ScenarioGetInvalidStepsVisitor implements Visitor {
         return invalidSteps;
     }
 
-    private boolean isTextInvalid(String text) {
+    public boolean isTextInvalid(String text) {
         boolean isInvalid = true;
         for (String actor : actors) {
             if (text.startsWith(actor)) {
@@ -51,5 +51,9 @@ public class ScenarioGetInvalidStepsVisitor implements Visitor {
             }
         }
         return isInvalid;
+    }
+
+    public void setActors(ArrayList<String> act) {
+        actors = act;
     }
 }
