@@ -203,6 +203,7 @@ Auto-generated documentation for our project is available on a GitHub page - see
 
 [![Javadoc](https://img.shields.io/badge/JavaDoc-Online-green)](https://MichalRedm.github.io/ScenarioQualityChecker/javadoc/)
 
+<!--
 ## Sprint remind:
 
 * We started the sprint on April 29th
@@ -222,4 +223,4 @@ Auto-generated documentation for our project is available on a GitHub page - see
 * Distribute work at the beginning
 * Plan what should be done in each week at the beginning
 * Meeting once a week
-
+-->
