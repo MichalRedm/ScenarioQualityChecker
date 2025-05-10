@@ -6,7 +6,7 @@
 
 ## Description of the project
 
-For analysts documenting functional requirements with scenarios, our SQC application will provide quantitative information and enable the detection of problems in functional requirements written in the form of scenarios. The application will be available via GUI and also as a remote API, thanks to which it can be integrated with existing tools.
+For analysts documenting functional requirements with scenarios, our SQC application provides quantitative information and enables the detection of problems in functional requirements written in the form of scenarios. It is available as a remote API, which allows it to be integrated with existing tools.
 
 Format of scenarios that will be processed by our application:
 - The scenario includes a header specifying its title and actors (external and system)
@@ -35,10 +35,6 @@ System actor: System
 * Librarian confirms book addition.
 * System informs about the correct addition of the book.
 ```
-
-## Backlog
-
-[Here](https://docs.google.com/spreadsheets/d/11QnRBhp2aYy2u0Iwbr8FGHB5VYHG_Fb6) is an Excel spreadsheet containing the Sprint and Product backlog for our project.
 
 ## Project structure
 
@@ -190,6 +186,10 @@ If the provided request is correct, the system should return a response in JSON 
 ```
 
 If any request is invalid, the system will produce an error `500 Bad Request` and return an error message via the API.
+
+## Additional information
+
+[Here](https://docs.google.com/spreadsheets/d/11QnRBhp2aYy2u0Iwbr8FGHB5VYHG_Fb6) is an Excel spreadsheet containing the Sprint and Product backlog for this project.
 
 <!--
 ## Sprint remind:
